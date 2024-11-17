@@ -4,7 +4,7 @@ import AddNewInterview from "./_components/AddNewInterview";
 
 function Dashboard() {
   return (
-    <div>
+    <div className="p-10">
       <h2 className="font-bold text-2xl">Dasboard</h2>
       <h2 className="text-gray-500">
         Create and start your Ai mockup interview

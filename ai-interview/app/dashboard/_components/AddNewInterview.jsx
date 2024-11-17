@@ -18,14 +18,15 @@ import { MockInterview } from "@/utils/schema";
 import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
-
+import { useRouter } from "next/navigation";
 function AddNewInterview() {
-  //states to hold aome values
+  //states to hold some values
   const [jobPosition, setJobPosition] = useState();
   const [jobDesc, setJobDesc] = useState();
   const [jobExperience, setJobExperience] = useState();
   const [openDialog, setOpenDialog] = useState(false);
   const [jesonResponse, setJesonResponse] = useState([]);
+  const router = useRouter();
 
   //to get users detail who loged in into our wbsite
   const { user } = useUser();
@@ -45,7 +46,7 @@ function AddNewInterview() {
       jobExperience +
       "besed on this prompt give me " +
       process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT +
-      " breif interview questions along with answers in JSON format. give me questions and answers field on JSON array";
+      " breif interview questions along with answers in JSON format. give me questions and answers field on array";
 
     const result = await chatSession.sendMessage(InputPrompt);
     const MockJsonResp = result.response
@@ -71,54 +72,14 @@ function AddNewInterview() {
       console.log("Inserted Id: ", resp);
       if (resp) {
         setOpenDialog(false);
+        router.push("/dashboard/interview/" + resp[0]?.mockId);
       }
-    } else {
+    } //
+    else {
       console.log("ERROR");
     }
     setLoading(false);
   };
-  // const onSubmit = async (e) => {
-  //   setLoading(true);
-  //   e.preventDefault();
-  //   console.log(jobPosition, jobDesc, jobExperience);
-
-  //   const InputPrompt =
-  //     "job Position: " +
-  //     jobPosition +
-  //     ", job Description: " +
-  //     jobDesc +
-  //     ", Years of Experiance:" +
-  //     jobExperience +
-  //     "based on this prompt give me " +
-  //     process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT +
-  //     " brief interview questions along with answers in JSON format. give me questions and answers field in JSON";
-
-  //   // Get response from the Gemini API using the chat session
-  //   const result = await chatSession.sendMessage(InputPrompt);
-  //   let MockJsonResp = await result.response.text();
-
-  //   // Clean up the response
-  //   MockJsonResp = MockJsonResp.replace("```json", "") // Remove markdown-like formatting
-  //     .replace("```", "");
-
-  //   // Parse the JSON response and ensure it's an array
-  //   let parsedResponse;
-  //   try {
-  //     parsedResponse = JSON.parse(MockJsonResp);
-
-  //     // Check if it's already an array, if not, convert to an array
-  //     if (!Array.isArray(parsedResponse)) {
-  //       // Assuming you want to extract array from object
-  //       parsedResponse = Object.values(parsedResponse);
-  //     }
-
-  //     console.log(parsedResponse); // Log the resulting array
-  //   } catch (error) {
-  //     console.error("Failed to parse JSON:", error);
-  //   }
-
-  //   setLoading(false);
-  // };
 
   return (
     <div>
@@ -134,7 +95,6 @@ function AddNewInterview() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl">
-              {" "}
               You are now interviewing. Tell us more about your self
             </DialogTitle>
             <DialogDescription>
@@ -165,7 +125,8 @@ function AddNewInterview() {
                     <Input
                       placeholder="E.g   5"
                       type="number"
-                      max="30"
+                      max="60"
+                      min="0"
                       required
                       onChange={(event) => setJobExperience(event.target.value)}
                     />
@@ -183,7 +144,7 @@ function AddNewInterview() {
                     {loading ? (
                       <>
                         <LoaderCircle className="animate-spin" />
-                        'Generating from Ai'
+                        Generating from Ai
                       </>
                     ) : (
                       "Start Interview"

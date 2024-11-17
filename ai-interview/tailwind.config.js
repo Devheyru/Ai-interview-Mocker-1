@@ -27,6 +27,12 @@ module.exports = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        teritery: {
+          DEFAULT: "#F1F2EB",
+        },
+        quaternary: {
+          DEFAULT: "#4845d2",
+        },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
