@@ -23,7 +23,7 @@ function Interview({ params }) {
       .select()
       .from(MockInterview)
       .where(eq(MockInterview.mockId, params.interviewId));
-    console.log(result);
+
     setInterviewData(result[0]);
     //console.log(interviewData);
   };

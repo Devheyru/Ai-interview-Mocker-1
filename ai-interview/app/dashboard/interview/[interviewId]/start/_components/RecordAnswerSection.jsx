@@ -17,7 +17,7 @@ function RecordAnswerSection({
   interviewData,
 }) {
   const [userAnswer, setUserAnswer] = useState("");
-  const user = useUser();
+  const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const {
     error,
@@ -56,7 +56,6 @@ function RecordAnswerSection({
   };
 
   const UpdateUserAnswer = async () => {
-    console.log(userAnswer);
     setLoading(true);
     const feedBackPrompt =
       "Interview Question: " +
@@ -81,7 +80,7 @@ function RecordAnswerSection({
       userAns: userAnswer,
       feedback: JesonFeedbackResp?.feedback,
       rating: JesonFeedbackResp?.rating,
-      userEmail: user?.primaryEmailAddress?.emailAddress,
+      userEmail: user?.primaryEmailAddress.emailAddress,
       createdAt: moment().format("DD-MM-yyyy"),
     });
     if (resp) {
