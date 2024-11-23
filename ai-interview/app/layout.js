@@ -44,7 +44,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "./dashboard/_components/Header";
 import Footer from "./dashboard/_components/Footer";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -68,6 +68,7 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col bg-gray-100 min-h-screen`}
         >
+          <SpeedInsights />
           <Header />
           <main className="flex-col">{children}</main>
           <Footer />
