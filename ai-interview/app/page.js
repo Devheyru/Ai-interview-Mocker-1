@@ -1,14 +1,15 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className=" my-5 onload: animate-zoom-in">
-      <div className="flex flex-col items-center sm: mx-5">
+    <main className=" my-5 onload: animate-zoom-in xl:mx-28">
+      <div className="flex flex-col items-center sm:mx-5">
         <h1 className="text-3xl text-center mx-12">
           Welcome to our AI-Generated Interview Mocker
         </h1>
 
-        <h2 className="text-2xl">Your journy starts here!</h2>
+        <h2 className="text-2xl">Start Your journy here!</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 m-10 md:justify-around">
@@ -95,6 +96,11 @@ export default function Home() {
             yourself with the video conferencing platform.
           </h2>
         </div>
+      </div>
+      <div className="flex justify-end items-end my-3 md:m-6">
+        <Link href={"/dashboard"}>
+          <Button className="mr-10">Let's Start</Button>
+        </Link>
       </div>
     </main>
   );

@@ -1,7 +1,11 @@
 import { Lightbulb, Volume2 } from "lucide-react";
 import React from "react";
 
-function QuestionsSection({ mockInterviewQuestion, activeQuestionIndex }) {
+function QuestionsSection({
+  mockInterviewQuestion,
+  activeQuestionIndex,
+  setActiveQuestionIndex,
+}) {
   const textToSpeech = (text) => {
     if ("speechSynthesis" in window) {
       const speech = new SpeechSynthesisUtterance(text);
@@ -13,15 +17,15 @@ function QuestionsSection({ mockInterviewQuestion, activeQuestionIndex }) {
   return (
     mockInterviewQuestion && (
       <div className="p-5 border rounded-lg my-10">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 cursor-pointer">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 cursor-pointer">
           {mockInterviewQuestion &&
             mockInterviewQuestion.map((questions, index) => (
               <h2
                 className={`"cursor-pointer p-2 bg-secondary rounded-full 
-                            text-sm md:text-lg text-center
+                            text-sm text-center
                             "${
                               activeQuestionIndex == index &&
-                              " bg-quaternary text-white"
+                              " bg-blue-500 text-white"
                             }`}
               >
                 Question #{index + 1}
